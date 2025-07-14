@@ -1,0 +1,23 @@
+,Position,Driver,Car,Lap,Time,Avg Speed
+5,1,Felipe Massa,Ferrari,56,1:37.454,201.362
+1,2,Fernando Alonso,McLaren Mercedes,54,1:37.991,200.259
+6,3,Kimi Räikkönen,Ferrari,52,1:38.285,199.660
+3,4,Giancarlo Fisichella,Renault,39,1:38.900,198.418
+7,5,Jenson Button,Honda,39,1:38.913,198.392
+16,6,Nico Rosberg,Williams Toyota,54,1:39.233,197.752
+9,7,Nick Heidfeld,Sauber BMW,55,1:39.325,197.569
+4,8,Heikki Kovalainen,Renault,52,1:39.331,197.557
+15,9,Mark Webber,Red Bull Renault,55,1:39.371,197.478
+14,10,David Coulthard,Red Bull Renault,55,1:39.640,196.945
+18,11,Vitantonio Liuzzi,STR Ferrari,53,1:39.654,196.917
+17,12,Alexander Wurz,Williams Toyota,54,1:39.743,196.741
+19,13,Sebastian Vettel,STR Ferrari,52,1:39.890,196.452
+12,14,Jarno Trulli,Toyota,55,1:39.911,196.410
+22,15,Takuma Sato,Super Aguri Honda,54,1:40.126,195.989
+8,16,Rubens Barrichello,Honda,55,1:40.516,195.228
+21,17,Sakon Yamamoto,Spyker Ferrari,52,1:40.764,194.748
+10,18,Robert Kubica,Sauber BMW,32,1:40.926,194.435
+2,19,Lewis Hamilton,McLaren Mercedes,22,1:43.131,190.278
+11,20,Ralf Schumacher,Toyota,25,1:44.062,188.576
+20,21,Adrian Sutil,Spyker Ferrari,22,1:47.603,182.370
+23,22,Anthony Davidson,Super Aguri Honda,9,1:51.765,175.579

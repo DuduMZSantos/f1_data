@@ -1,0 +1,21 @@
+,Position,Driver,Car,Time / Gap,Laps
+16,1,Charles Leclerc,Ferrari,1:38.192,15
+44,2,Lewis Hamilton,Mercedes,+0.207s,15
+5,3,Sebastian Vettel,Ferrari,+0.619s,13
+77,4,Valtteri Bottas,Mercedes,+0.693s,16
+23,5,Alexander Albon,Red Bull Racing Honda,+1.066s,14
+33,6,Max Verstappen,Red Bull Racing Honda,+1.174s,9
+55,7,Carlos Sainz,McLaren Renault,+1.315s,14
+4,8,Lando Norris,McLaren Renault,+1.517s,13
+27,9,Nico Hulkenberg,Renault,+1.926s,15
+3,10,Daniel Ricciardo,Renault,+1.961s,12
+18,11,Lance Stroll,Racing Point BWT Mercedes,+2.017s,11
+10,12,Pierre Gasly,Scuderia Toro Rosso Honda,+2.147s,15
+7,13,Kimi Räikkönen,Alfa Romeo Racing Ferrari,+2.761s,16
+11,14,Sergio Perez,Racing Point BWT Mercedes,+2.793s,4
+63,15,George Russell,Williams Mercedes,+2.964s,13
+99,16,Antonio Giovinazzi,Alfa Romeo Racing Ferrari,+2.977s,14
+20,17,Kevin Magnussen,Haas Ferrari,+3.302s,12
+8,18,Romain Grosjean,Haas Ferrari,+3.350s,12
+88,19,Robert Kubica,Williams Mercedes,+3.762s,13
+26,20,Daniil Kvyat,Scuderia Toro Rosso Honda,,3

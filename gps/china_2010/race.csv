@@ -1,0 +1,25 @@
+,Position,Driver,Car,Laps,Time,Points
+1,1,Jenson Button,McLaren Mercedes,56,1:46:42.163,25
+2,2,Lewis Hamilton,McLaren Mercedes,56,+1.530s,18
+4,3,Nico Rosberg,Mercedes,56,+9.484s,15
+8,4,Fernando Alonso,Ferrari,56,+11.869s,12
+11,5,Robert Kubica,Renault,56,+22.213s,10
+5,6,Sebastian Vettel,RBR Renault,56,+33.310s,8
+12,7,Vitaly Petrov,Renault,56,+47.600s,6
+6,8,Mark Webber,RBR Renault,56,+52.172s,4
+7,9,Felipe Massa,Ferrari,56,+57.796s,2
+3,10,Michael Schumacher,Mercedes,56,+61.749s,1
+14,11,Adrian Sutil,Force India Mercedes,56,+62.874s,0
+9,12,Rubens Barrichello,Williams Cosworth,56,+63.665s,0
+17,13,Jaime Alguersuari,STR Ferrari,56,+71.416s,0
+19,14,Heikki Kovalainen,Lotus Cosworth,55,+1 lap,0
+10,15,Nico Hulkenberg,Williams Cosworth,55,+1 lap,0
+21,16,Bruno Senna,HRT Cosworth,54,+2 laps,0
+20,17,Karun Chandhok,HRT Cosworth,52,+4 laps,0
+18,NC,Jarno Trulli,Lotus Cosworth,26,DNF,0
+25,NC,Lucas di Grassi,Virgin Cosworth,8,DNF,0
+22,NC,Pedro de la Rosa,Sauber Ferrari,7,DNF,0
+16,NC,Sebastien Buemi,STR Ferrari,0,DNF,0
+23,NC,Kamui Kobayashi,Sauber Ferrari,0,DNF,0
+15,NC,Vitantonio Liuzzi,Force India Mercedes,0,DNF,0
+24,NC,Timo Glock,Virgin Cosworth,,DNS,0
