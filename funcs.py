@@ -89,10 +89,11 @@ def get_drivers_classification(year):
 def get_teams_classification(year):
     res = requests.get(f"https://www.formula1.com/en/results/{year}/team")
     content = BeautifulSoup(res.content, "html.parser")
-    positions = content.find_all(attrs={"class":"f1-text font-titillium tracking-normal font-normal non-italic normal-case leading-none f1-text__micro text-fs-15px"})
+    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
+    positions = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
     classification = {}
     for index in range(0,len(positions),3):
-        classification[positions[index+1].text] = {"Position":int(positions[index].text), "Points":positions[index+2].text}
+        classification[positions[index+1].text] = {"Position":positions[index].text, "Points":positions[index+2].text}
     return classification
 
 def get_race_winners(year):
@@ -336,4 +337,6 @@ def get_drivers_classifications(folder="drivers_classifications"):
     for year in range(1950,2026):
         data_to_csv(get_drivers_classification(year), f"./{folder}/{year}.csv")
 
-get_drivers_classifications()
+def get_teams_classifications(folder="teams_classifications"):
+    for year in range(1958,2026):
+        data_to_csv(get_teams_classification(year), f"./{folder}/{year}.csv")
