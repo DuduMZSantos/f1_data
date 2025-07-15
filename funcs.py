@@ -74,12 +74,13 @@ def get_team_season(name):
 def get_drivers_classification(year):
     res = requests.get(f"https://www.formula1.com/en/results/{year}/drivers")
     content = BeautifulSoup(res.content, "html.parser")
-    positions = content.find_all(attrs={"class":"f1-text font-titillium tracking-normal font-normal non-italic normal-case leading-none f1-text__micro text-fs-15px"})
+    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
+    positions = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
     classification = {}
     for index in range(0,len(positions),5):
         name = positions[index+1].find_all(attrs={"class":"max-lg:hidden"})[0].text
         name += f' {positions[index+1].find_all(attrs={"class":"max-md:hidden"})[0].text}'
-        classification[name] = {"Position":int(positions[index].text),
+        classification[name] = {"Position":positions[index].text,
                                 "Country":positions[index+2].text,
                                 "Car":positions[index+3].text,
                                 "Points":positions[index+4].text}
@@ -297,26 +298,27 @@ def data_to_csv(data, file_path):
         df = pd.DataFrame(data).T
         df.to_csv(file_path)
 
-def get_data(race, folder="gps"):
-    gp, year = race.split()
-    year = int(year)
-    folder_gp = f"{gp}_{year}"
-    if folder_gp not in folder:
-        os.makedirs(f"./{folder}/{folder_gp}", exist_ok=True)
-        data_to_csv(get_race_result(gp, year), f"./{folder}/{folder_gp}/race.csv")
-        if year > 2020:
-            data_to_csv(get_race_result(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint.csv")
-            data_to_csv(get_starting_grid(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_grid.csv")
-            data_to_csv(get_overall_qualifying(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_qualifying.csv")
-        data_to_csv(get_race_fastest_laps(gp, year), f"./{folder}/{folder_gp}/fastest_laps.csv")
-        try:
-            data_to_csv(get_starting_grid(gp, year), f"./{folder}/{folder_gp}/starting_grid.csv")
-        except IndexError:
-            data_to_csv(get_starting_grid(gp, year, special_case=True), f"./{folder}/{folder_gp}/starting_grid.csv")
-        data_to_csv(get_overall_qualifying(gp, year), f"./{folder}/{folder_gp}/overall_qualifying.csv")
-        if year > 1987:
-            for index in range(1,5):
-                data_to_csv(get_practice(gp, year, index), f"./{folder}/{folder_gp}/practice_{index}.csv")
+def get_data(folder="gps"):
+    for race in race_ids:
+        gp, year = race.split()
+        year = int(year)
+        folder_gp = f"{gp}_{year}"
+        if folder_gp not in folder:
+            os.makedirs(f"./{folder}/{folder_gp}", exist_ok=True)
+            data_to_csv(get_race_result(gp, year), f"./{folder}/{folder_gp}/race.csv")
+            if year > 2020:
+                data_to_csv(get_race_result(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint.csv")
+                data_to_csv(get_starting_grid(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_grid.csv")
+                data_to_csv(get_overall_qualifying(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_qualifying.csv")
+            data_to_csv(get_race_fastest_laps(gp, year), f"./{folder}/{folder_gp}/fastest_laps.csv")
+            try:
+                data_to_csv(get_starting_grid(gp, year), f"./{folder}/{folder_gp}/starting_grid.csv")
+            except IndexError:
+                data_to_csv(get_starting_grid(gp, year, special_case=True), f"./{folder}/{folder_gp}/starting_grid.csv")
+            data_to_csv(get_overall_qualifying(gp, year), f"./{folder}/{folder_gp}/overall_qualifying.csv")
+            if year > 1987:
+                for index in range(1,5):
+                    data_to_csv(get_practice(gp, year, index), f"./{folder}/{folder_gp}/practice_{index}.csv")
 
 def get_teams_data(folder="teams_stats"):
     for team in teams:
@@ -329,3 +331,9 @@ def get_drivers_data(folder="drivers_stats"):
         os.makedirs(f"./{folder}/{driver.replace('-','_')}", exist_ok=True)
         data_to_csv(get_driver_career(driver), f"./{folder}/{driver.replace('-','_')}/{driver.replace('-','_')}_career.csv")
         data_to_csv(get_driver_season(driver), f"./{folder}/{driver.replace('-','_')}/{driver.replace('-','_')}_season.csv")
+
+def get_drivers_classifications(folder="drivers_classifications"):
+    for year in range(1950,2026):
+        data_to_csv(get_drivers_classification(year), f"./{folder}/{year}.csv")
+
+get_drivers_classifications()
