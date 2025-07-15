@@ -299,7 +299,7 @@ def data_to_csv(data, file_path):
         df = pd.DataFrame(data).T
         df.to_csv(file_path)
 
-def get_data(folder="gps"):
+def get_gps(folder="gps"):
     for race in race_ids:
         gp, year = race.split()
         year = int(year)
