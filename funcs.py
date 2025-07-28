@@ -373,5 +373,3 @@ def get_all_after_race(gp, folder="gps"):
             data_to_csv(get_driver_season(driver), f"./drivers_stats/{driver.replace('-','_')}/{driver.replace('-','_')}_season.csv")
         data_to_csv(get_drivers_classification(year), f"./drivers_classifications/{year}.csv")
         data_to_csv(get_teams_classification(year), f"./teams_classifications/{year}.csv")
-
-get_all_after_race("belgium 2025")
