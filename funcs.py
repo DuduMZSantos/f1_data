@@ -340,3 +340,38 @@ def get_drivers_classifications(folder="drivers_classifications"):
 def get_teams_classifications(folder="teams_classifications"):
     for year in range(1958,2026):
         data_to_csv(get_teams_classification(year), f"./{folder}/{year}.csv")
+
+def get_all_after_race(gp, folder="gps"):
+    files = os.listdir(folder)
+    gp, year = gp.split()
+    year = int(year)
+    folder_gp = f"{gp}_{year}"
+    if folder_gp not in files:
+        os.makedirs(f"./{folder}/{folder_gp}", exist_ok=True)
+    if len(os.listdir(f"./{folder}/{folder_gp}")) == 0:
+        data_to_csv(get_race_result(gp, year), f"./{folder}/{folder_gp}/race.csv")
+        if year > 2020:
+            data_to_csv(get_race_result(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint.csv")
+            data_to_csv(get_starting_grid(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_grid.csv")
+            data_to_csv(get_overall_qualifying(gp, year, sprint=True), f"./{folder}/{folder_gp}/sprint_qualifying.csv")
+        data_to_csv(get_race_fastest_laps(gp, year), f"./{folder}/{folder_gp}/fastest_laps.csv")
+        try:
+            data_to_csv(get_starting_grid(gp, year), f"./{folder}/{folder_gp}/starting_grid.csv")
+        except IndexError:
+            data_to_csv(get_starting_grid(gp, year, special_case=True), f"./{folder}/{folder_gp}/starting_grid.csv")
+        data_to_csv(get_overall_qualifying(gp, year), f"./{folder}/{folder_gp}/overall_qualifying.csv")
+        if year > 1987:
+            for index in range(1,5):
+                data_to_csv(get_practice(gp, year, index), f"./{folder}/{folder_gp}/practice_{index}.csv")
+        for team in teams:
+            os.makedirs(f"./teams_stats/{team.replace('-','_')}", exist_ok=True)
+            data_to_csv(get_team_history(team), f"./teams_stats/{team.replace('-','_')}/{team.replace('-','_')}_history.csv")
+            data_to_csv(get_team_season(team), f"./teams_stats/{team.replace('-','_')}/{team.replace('-','_')}_season.csv")
+        for driver in drivers:
+            os.makedirs(f"./drivers_stats/{driver.replace('-','_')}", exist_ok=True)
+            data_to_csv(get_driver_career(driver), f"./drivers_stats/{driver.replace('-','_')}/{driver.replace('-','_')}_career.csv")
+            data_to_csv(get_driver_season(driver), f"./drivers_stats/{driver.replace('-','_')}/{driver.replace('-','_')}_season.csv")
+        data_to_csv(get_drivers_classification(year), f"./drivers_classifications/{year}.csv")
+        data_to_csv(get_teams_classification(year), f"./teams_classifications/{year}.csv")
+
+get_all_after_race("belgium 2025")
