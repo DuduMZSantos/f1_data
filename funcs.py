@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import requests
 import os
-from constants import race_ids, drivers, teams
+from constants import race_ids, drivers, teams, html_classes
 
 def get_driver_career(name):
     res = requests.get(f"https://www.formula1.com/en/drivers/{name}")
@@ -74,8 +74,8 @@ def get_team_season(name):
 def get_drivers_classification(year):
     res = requests.get(f"https://www.formula1.com/en/results/{year}/drivers")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    positions = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["general_table"]})[0]
+    positions = table.find_all(attrs={"class":html_classes["table_rows"]})
     classification = {}
     for index in range(0,len(positions),5):
         name = positions[index+1].find_all(attrs={"class":"max-lg:hidden"})[0].text
@@ -89,8 +89,8 @@ def get_drivers_classification(year):
 def get_teams_classification(year):
     res = requests.get(f"https://www.formula1.com/en/results/{year}/team")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    positions = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["general_table"]})[0]
+    positions = table.find_all(attrs={"class":html_classes["table_rows"]})
     classification = {}
     for index in range(0,len(positions),3):
         classification[positions[index+1].text] = {"Position":positions[index].text, "Points":positions[index+2].text}
@@ -119,8 +119,8 @@ def get_race_result(gp, year, sprint=False):
     else:
         res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/sprint-results")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     for index in range(0,len(data),7):
         name = data[index+2].find_all(attrs={"class":"max-lg:hidden"})[0].text
@@ -139,8 +139,8 @@ def get_race_fastest_laps(gp, year):
     key = f"{gp} {year}"
     res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/fastest-laps")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     if int(year) < 1998:
         for index in range(0,len(data),6):
@@ -182,8 +182,8 @@ def get_starting_grid(gp, year, special_case=False, sprint=False):
     else:
         res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/sprint-grid")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     if sprint or not special_case:
         for index in range(0,len(data),5):
@@ -207,8 +207,8 @@ def get_sprint_grid(gp, year):
     key = f"{gp} {year}"
     res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/sprint-grid")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     for index in range(0,len(data),5):
         name = data[index+2].find_all(attrs={"class":"max-lg:hidden"})[0].text
@@ -229,8 +229,8 @@ def get_overall_qualifying(gp, year, sprint=False):
     elif int(year) > 2020 and sprint:
         res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/sprint-qualifying")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     if int(year) < 1994:
         for index in range(0,len(data),5):
@@ -267,8 +267,8 @@ def get_practice(gp, year, n):
     key = f"{gp} {year}"
     res = requests.get(f"https://www.formula1.com/en/results/{year}/races/{race_ids[key]}/{gp}/practice/{n}")
     content = BeautifulSoup(res.content, "html.parser")
-    table = content.find_all(attrs={"class":"f1-table f1-table-with-data w-full"})[0]
-    data = table.find_all(attrs={"class":"typography-module_body-s-semibold__O2lOH"})
+    table = content.find_all(attrs={"class":html_classes["gps_table"]})[0]
+    data = table.find_all(attrs={"class":html_classes["table_rows"]})
     info = {}
     if int(year) < 1994:
         for index in range(0,len(data),5):

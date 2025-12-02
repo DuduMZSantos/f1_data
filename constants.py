@@ -1186,3 +1186,9 @@ teams = [
     "haas",
     "racing-bulls"
 ]
+
+html_classes = {
+    "general_table":"Table-module_scrollable-area__SVi8J",
+    "table_rows":"typography-module_body-s-semibold__O2lOH",
+    "gps_table":"Table-module_table__cKsW2"
+}
